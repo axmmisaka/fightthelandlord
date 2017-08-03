@@ -1,6 +1,6 @@
 import copy 
 #use deep copy
-
+#Portablity
 class player(object):
     def __init__(self,_isLandlord,_previousPlayer,_nextPlayer,_initCards):
         self.cards = []
@@ -76,7 +76,7 @@ class player(object):
 dizhu = 0
 nong1 = 0
 nong2 = 0
-cards = [[3, 0], [3, 1], [3, 2], [3, 3], [4, 0], [4, 1], [4, 2], [4, 3], [5, 0], [5, 1], [5, 2], [5, 3], [6, 0], [6, 1], [6, 2], [6, 3], [7, 0]]
+cards = [[4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [11, 0], [13, 0], [13, 3], [15, 1], [15, 2], [15, 3], [16, 4], [3, 1], [11, 3], [10, 3], [14, 2], [11, 1]]
 dizhu = player(True, nong1, nong2, cards)
 
 
