@@ -1,12 +1,7 @@
 from player import *
 class aiPlayer(player):
     def __init__(self,_isLandlord,_previousPlayer,_nextPlayer,_initCards):
-        self.cards = []
-        self.isLandlord = _isLandlord
-        self.previousPlayer = _previousPlayer
-        self.nextPlayer = player
-        self.cards = copy.deepcopy(_initCards)
-
+        player.__init__(self,_isLandlord,_previousPlayer,_nextPlayer,_initCards)
 
     def analyzer(self):
         cardUncolor = {}
@@ -14,7 +9,7 @@ class aiPlayer(player):
         # 3+1, full house and 3+2, 4+2 will only be considered 
         complexCardSet = {"straight":[],"liandui":[],"airplane":[]}
         #delete colors of cards
-        for foo in self.cards:
+        for foo in self.cards.cards:
             if foo[0] in cardUncolor:
                 cardUncolor[foo[0]] += 1
             else:
