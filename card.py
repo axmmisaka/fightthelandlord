@@ -11,6 +11,8 @@ class poker(object):
         self.cards = []
     def sort(self):
             self.cards = sorted(self.cards)
+    def __len__(self):
+        return len(self.cards)
     def displable(self):
             cpycard = copy.deepcopy(self.cards)
             for i in cpycard:

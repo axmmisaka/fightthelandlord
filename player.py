@@ -7,7 +7,7 @@ class player(object):
         self.cards = poker()
         self.isLandlord = _isLandlord
         self.previousPlayer = _previousPlayer
-        self.nextPlayer = player
+        self.nextPlayer = _nextPlayer
         self.cards.addCard(_initCards)
 
 
