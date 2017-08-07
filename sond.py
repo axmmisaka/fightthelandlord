@@ -10,7 +10,7 @@ import os
 system = platform.system()
 
 def play(filename):
-    if system == "darwin":
+    if system == "Darwin":
         name = 'afplay ' + filename
         proc = subprocess.Popen([name], shell = True)
         return proc #SAVE THIS so you can terminate it
@@ -22,7 +22,7 @@ def play(filename):
         print("YOUR OPERATING SYSTEM IS NOT SUPPORTED YET!")
         return -1
 def stop(proc):
-    if system == "darwin":
+    if system == "Darwin":
         proc.terminate()
     elif system == "Linux":
         os.system("kill "+(os.popen("ps | grep aplay").readlines()[0]).split()[0])
