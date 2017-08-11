@@ -25,11 +25,13 @@ class poker(object):
                 elif i[0] == 14:
                     i[0] = 'A'
                 elif i[0] == 15:
-                    i[0] = 2
+                    i[0] = '2'
                 elif i[0] == 16:
                     i[0] = 'joker'
                 elif i[0] == 17:
                     i[0] = 'JOKER'
+                else:
+                    i[0] = str(i[0])
                 if i[1] == 0:
                     i[1] = '♠'
                 elif i[1] == 1:

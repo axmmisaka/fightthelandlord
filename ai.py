@@ -79,7 +79,11 @@ class aiPlayer(player):
 
         return cardSet, complexCardSet
 
-
+    def beLandlord(self):
+        if self.cards[8][0] > 10:
+            return 'y' #For implement. Should be True
+        else:
+            return 'n'
 #strategy/explaination in chinese
 #分析手牌
 #先看是不是王炸
@@ -150,7 +154,7 @@ class aiPlayer(player):
                             if cardType == "airplanewithsmall":
                                 if len(cmon["single"])>=number[1]:
                                     wing = []
-                                    for i in range(0,number[1]-1):
+                                    for i in range(0,number[1]):
                                         wing.append(cmon["single"][i])
                                     if foo[0] > number[0]:
                                         return (cardType,(foo[0],number[1],wing))
@@ -160,7 +164,7 @@ class aiPlayer(player):
                             if cardType == "airplanewithbig":
                                 if len(cmon["pair"])>=number[1]:
                                     wing = []
-                                    for i in range(0,number[1]-1):
+                                    for i in range(0,number[1]):
                                         wing.append(cmon["pair"][i])
                                         wing.append(cmon["pair"][i])
                                     if foo[0] > number[0]:
@@ -236,16 +240,43 @@ class aiPlayer(player):
                 if selSm("joker"): return selSm("joker")
                 if selSm("bomb"): return selSm("bomb")
 
+def expand(pair):
+    res = []
+    _helper = {"single":1,"pair":2,"triple":3,"fullhouse":3,"3+1":3,"3+2":3,"straight":1,"straight2":2,"airplane":3,"joker":1,"bomb":4,"airplanewithsmall":3,"airplanewithbig":3}
+    cmon = ["single","pair","triple","joker","bomb"]
+    cplx = ["straight","straight2","airplane"]
+    plane = ["airplanewithbig","airplanewithsmall"]
+    if pair == "pass":
+        return []
+    if pair[0] in cmon:
+        for i in range(0,_helper[pair[0]]):
+            res.append(pair[1][0])
+    elif pair[0] in cplx:
+        for foo in range(pair[1][0],pair[1][0]+pair[1][1]):
+            for i in range(0,_helper[pair[0]]): 
+                res.append(foo)
+    elif pair[0] in plane:
+        for foo in range(pair[1][0],pair[1][0]+pair[1][1]):
+            for i in range(0,3):
+                res.append(foo)
+        res += pair[1][2]
+    else:
+        for i in range(0,_helper[pair[0]]):
+            res.append(pair[1][0])
+        res += pair[1][1]
+    return res
 
-
-
-
-
+def letterCard(lst):
+    helper = {3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '10', 11: 'J', 12: 'Q', 13: 'K', 14: 'A', 15: '2', 16: 'joker', 17: 'JOKER'}
+    if lst == []:
+        return ""
+    else:
+        return " ".join([helper[x] for x in lst])
 
 #Test
-py1 = 0
-py2 = 0
-ai = 0
-py1 = aiPlayer(False,py2,ai,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
-py2 = aiPlayer(True,ai,py1,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
-ai = aiPlayer(False,py1,py2,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1],[11,2], [11, 3],[12,2], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
+#py1 = 0
+#py2 = 0
+#ai = 0
+#py1 = aiPlayer(False,py2,ai,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
+#py2 = aiPlayer(True,ai,py1,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
+#ai = aiPlayer(False,py1,py2,[[4, 0], [4, 1], [4, 2], [5,0], [5, 1], [5, 2], [10, 3], [11, 0], [11, 1],[11,2], [11, 3],[12,2], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
