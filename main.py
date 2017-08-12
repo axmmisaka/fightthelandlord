@@ -7,12 +7,19 @@ from legal import *
 from player import *
 from sond import *
 
+#portability
 SYSTYPE = platform.system()
+
 #Convert JQKA2 into 12345 stuff 
 def calcPoint(winPlayer,player,allpoint):
+    #landlord win get full, farmer win both get half
     addAmount = 1.0 if winPlayer.isLandlord else 0.5
+    #win positive, lost negative
     addOrMinus =1 if winPlayer.isLandlord == player.isLandlord else -1
     player.score += int(allpoint * addAmount * addOrMinus)
+
+
+#Turn JQKA2 into machine recognizable numbers
 def recognizable(lst):
         _dict = {'8': 8, '10': 10, '6': 6, '9': 9, '7': 7, '5': 5, '3': 3, '4': 4,'J':11,'Q':12,'K':13,'A':14,'2':15,'joker':16,'JOKER':17,'j':11,'q':12,'k':13,'a':14}
         res = lst[:]
@@ -198,13 +205,16 @@ boa.draw(lastHumanPlayer,lastHumanPlayer.previousPlayer,lastHumanPlayer.nextPlay
 previousHandingPlayer = currentplayer
 #play!
 while(not len(currentplayer.previousPlayer.cards) == 0):
-        os.system("cls") if SYSTYPE == "Windows" else os.system("clear")#Not supporting non-POSIX
+#nobody has winned
+        os.system("cls") if SYSTYPE == "Windows" else os.system("clear")#support non-POSIX
         if previousHanding != [] and previousHandingPlayer == currentplayer.previousPlayer:
+        #see if last handing is made by previous player
             if cardtype(previousHanding)[0] == 'bomb':
                 boa.baseMul(2)
             if cardtype(previousHanding)[0] == 'rocket':
                 boa.baseMul(4)
         boa.draw(lastHumanPlayer,lastHumanPlayer.previousPlayer,lastHumanPlayer.nextPlayer,previousHandingWcolor.displable(),BOARDLENGTH,BOARDHEIGHT)
+        #Use ai's input if it's AI so this program won't need to change entirely
         if isinstance(currentplayer,aiPlayer):
             handingstr = letterCard(expand(currentplayer.pickCard(previousHandingPlayer,previousHanding,currentplayer.nextPlayer)))
             input()
@@ -218,14 +228,13 @@ while(not len(currentplayer.previousPlayer.cards) == 0):
             previousHanding = []
         if len(handing) == 0:#not handing anything
             if previousHandingPlayer != currentplayer:
-                #boa.easydraw(currentplayer,currentplayer.previousPlayer,currentplayer.nextPlayer,["pass"])
                 input("Press ENTER to let next player hand.")
                 currentplayer = currentplayer.nextPlayer
             else:
                 input("You must hand! Press ENTER to continue.")
         elif previousHanding == []:#first handing player
             if cardtype(handing) != -1 and handingWcolor.cards != -1:
-                #boa.easydraw(currentplayer,currentplayer.previousPlayer,currentplayer.nextPlayer,handingWcolor.displable())
+                #delete handed cards
                 currentplayer.cards.delCard(handingWcolor.cards)
                 previousHandingPlayer = currentplayer
                 previousHanding = handing
@@ -237,7 +246,7 @@ while(not len(currentplayer.previousPlayer.cards) == 0):
                 input("1Invaild handing! Press ENTER to continue.")
         else:#This can only be follow-up
             if cardtype(handing)!= -1 and legal(previousHanding,handing) and handingWcolor.cards != -1:
-                #boa.easydraw(currentplayer,currentplayer.previousPlayer,currentplayer.nextPlayer,handingWcolor.displable())
+            #Handing is valid and legal, and player have all cards that he/she needs. 
                 currentplayer.cards.delCard(handingWcolor.cards)
                 previousHandingPlayer = currentplayer
                 previousHandingWcolor.cards = copy.deepcopy(handingWcolor.cards)

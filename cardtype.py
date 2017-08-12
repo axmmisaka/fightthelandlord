@@ -1,4 +1,5 @@
 def cardtype(cards):
+        #simple cards
         if len(cards) == 1:
                 return "single",(cards[0],)
         if len(cards) == 2:
@@ -13,6 +14,7 @@ def cardtype(cards):
                         return "triple",(cards[0],)
                 else:
                         return -1
+        #Have two possibilities
         if len(cards) == 4:
                 if cards[0] == cards[1] == cards[2] == cards[3]:
                         return "bomb",(cards[0],)
@@ -20,6 +22,7 @@ def cardtype(cards):
                         return "3+1",(cards[0],cards[1])
                 else:
                         return -1
+        #have two possibilities
         if len(cards) == 5:
                 if cards[0] == cards[1] == cards[2] and cards[3] == cards[4]:
                         return "fullhouse",(cards[0],cards[3])
@@ -42,6 +45,7 @@ def cardtype(cards):
             else:
                         return -1
         if len(cards) >= 7:
+                #see if it's like 3456789
                 i = 0
                 while i <= len(cards) - 2:
                         if cards[0] != cards[i + 1] - (i + 1):
@@ -50,12 +54,13 @@ def cardtype(cards):
                 if i == len(cards) - 1:         
                         return "straight" ,(cards[0], len(cards))
                 
-                
+                #See if it's like 3x4x5x6x7x
                 i = 0
                 while i <= len(cards) - 2:
                         if cards[i] != cards[i + 1]:
                                 break
                         i += 2
+                #See if it's like 3344556677
                 if i == len(cards):
                     i = 1
                     while i <= len(cards) - 2:
@@ -67,24 +72,27 @@ def cardtype(cards):
                 lst = cards[:]
                 r = 0
                 
-                
+                #The same stragies for plane, however, this only count the "plane body" part
                 for i in range(0,int(len(cards)/3)):
                         if lst[0] == lst[1] == lst[2] and lst[0] == cards[0]+r:
                                 lst = lst[3:]
                                 r += 1
                         else:
                                 break
+                #see if this is a plane
                 if r == 1 or r == 0:
                         return -1
                 else:
                         if len(lst) ==0:
                                 return "airplane",(cards[0],r)
+                        #see if it's with small wing
                         if len(lst) == r:
                                 for i in range(0,len(lst)):
                                         if lst[i] != lst[1 + i]:
                                                 return "airplanewithsmall",(cards[0],r,lst)
                                         else:
                                                 return -1
+                        #see if this is with big wing
                         if len(lst) == 2 * r:
                                 lstt = lst[:]
                                 p = 0

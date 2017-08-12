@@ -9,7 +9,7 @@ def appearTime(cards):
     for foo in cards:
         time[foo] = time[foo] + 1 if foo in time else 1
     return time
-
+#Sorter, this will sort cards with how many cards does this card number have, and if the same, sord with card number.
 def formatter(cards):
     time = appearTime(cards)
     return sorted(cards,

@@ -99,7 +99,7 @@ class aiPlayer(player):
         cmon, cplx = self.analyzer()
         #string and tuple
         #these two are boolean
-        if lastcard != []:
+        if lastcard != []:#handing was made
             isOpponent = self.isLandlord != hander.isLandlord
             cardType, number = cardtype(formatter(lastcard))    
             isCmon = cardType in cmon
@@ -243,9 +243,13 @@ class aiPlayer(player):
 
 def expand(pair):
     res = []
+    #How many cards for each card number of the main portion
     _helper = {"single":1,"pair":2,"triple":3,"fullhouse":3,"3+1":3,"3+2":3,"straight":1,"straight2":2,"airplane":3,"joker":1,"bomb":4,"airplanewithsmall":3,"airplanewithbig":3}
+    #Common cards - only one number
     cmon = ["single","pair","triple","joker","bomb"]
+    #Complex cards - mutiple common cards
     cplx = ["straight","straight2","airplane"]
+    #two special planes
     plane = ["airplanewithbig","airplanewithsmall"]
     if pair == "pass":
         return []
@@ -267,17 +271,11 @@ def expand(pair):
         res += pair[1][1]
     return res
 
+#Turn machine-recognizable card into letters
 def letterCard(lst):
     helper = {3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '10', 11: 'J', 12: 'Q', 13: 'K', 14: 'A', 15: '2', 16: 'joker', 17: 'JOKER'}
     if lst == []:
-        return ""
+        return ""#Otherwise it will crash
     else:
         return " ".join([helper[x] for x in lst])
 
-#Test
-py1 = 0
-py2 = 0
-ai = 0
-py1 = aiPlayer(False,py2,ai,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
-py2 = aiPlayer(True,ai,py1,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
-ai = aiPlayer(False,py1,py2,[[4, 0], [4, 1], [4, 2], [5,0], [5, 1], [5, 2], [10, 3], [11, 0], [11, 1],[11,2], [11, 3],[12,2], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])

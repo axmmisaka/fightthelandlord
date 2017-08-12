@@ -1,3 +1,8 @@
+#This is written by Jones.
+#It can be modified easier but it is working effectively...
+#I fixed a lot of bugs.
+#It simply see if two card types are the same and if they are, see if the new number is bigger.
+
 from cardtype import *
 def legal(cards1,cards2):
 	type1,number1 = cardtype(cards1)
@@ -5,6 +10,8 @@ def legal(cards1,cards2):
 	if type2 == "rocket":
 		return True
 	if type2 == "bomb":
+                if type1 == "rocket"
+                    return False
 		if type1 == "bomb":
 			if number2[0] > number1[0]:
 				return True

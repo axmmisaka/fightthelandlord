@@ -8,7 +8,7 @@ import os
 #DONT DO THIS!
 
 system = platform.system()
-
+#Portability
 def play(filename):
     if system == "Darwin":
         name = 'afplay ' + filename

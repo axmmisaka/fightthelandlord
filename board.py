@@ -8,6 +8,7 @@ from player import *
 from ai import *
 from card import *
 
+#make a string list
 def make(length,height):
     strlst = []
     for foo in range(0,height):
@@ -18,11 +19,12 @@ def make(length,height):
 
 def subst(str,index,target):
     return str[:index] + target + str[index+1:]
+#substitute from x,y of given string list to a given string
 def substr(strlst,x,y,string):
     for foo in range(x,x+len(string)):
         strlst[y] = subst(strlst[y],foo,string[foo-x])
 
-
+#Add a given spec rectangle to the display string list.
 def substituteRec(strlst,x,y,length,height,clearInside):
     for foo in range(x+1,x+length-1):
         strlst[y] = subst(strlst[y],foo,'─')
@@ -39,9 +41,11 @@ def substituteRec(strlst,x,y,length,height,clearInside):
         for foo in range(x+1,x+length-2):
             for bar in range(y+1,y+height-1):
                 strlst[bar] = subst(strlst[bar],foo,' ')
+#Add a number inside a given-spec rectangle
 def addNum(strlst,x,y,length,height,num): 
     strlst[y+int((height/2))] = subst(strlst[y+int(height/2)],x+int(length/2)-1,str(int(num / 10)))
     strlst[y+int((height/2))] = subst(strlst[y+int(height/2)],x+int(length/2)+1,str(int(num % 10)))
+#Add card color,such as Ace of Diamonds inside a given rectangle.
 def addColor(strlst,x,y,cardWcolor):
     if cardWcolor[0] == 'joker':  #Some change to make print work
         cardWcolor[0] = 'jo'
@@ -51,7 +55,7 @@ def addColor(strlst,x,y,cardWcolor):
         cardWcolor[1] = 'KER'
     substr(strlst,x+1,y+1,cardWcolor[0])
     substr(strlst,x+1,y+2,cardWcolor[1])
-
+#Display a string list in command prompt
 def printstr(strlst,height):
     for foo in range(0,height):
         print(strlst[foo])
