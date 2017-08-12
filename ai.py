@@ -80,7 +80,7 @@ class aiPlayer(player):
         return cardSet, complexCardSet
 
     def beLandlord(self):
-        if self.cards[8][0] > 10:
+        if self.cards.cards[8][0] > 10:
             return 'y' #For implement. Should be True
         else:
             return 'n'
@@ -122,13 +122,13 @@ class aiPlayer(player):
                             if foo > number[0]:
                                 return(cardType,(foo,))
                         if len(cmon["bomb"]) > 0:
-                            return("bomb", cmon["bomb"][0])
+                            return("bomb", (cmon["bomb"][0],))
                         elif len(hander.cards) < 10 and cmon["joker"] == [16,17]:
                             return("rocket",(16,17))
 
             if cardType == "single" and number[0] > 13:
                 if len(cmon["joker"]) > 0:
-                    return("joker",(cmon[0],))
+                    return("joker",(cmon["joker"][0],))
             
             if isCplx and cardType in ["straight","straight2","airplane"]:
                 if cplx[cardType] != []:
@@ -210,6 +210,7 @@ class aiPlayer(player):
             selBg = lambda x:(x,(cmon[x][-1],)) if len(cmon[x])>0 else False
             selSm = lambda x:(x,(cmon[x][0],)) if len(cmon[x])>0 else False
             selSmCplx = lambda x:(x,cplx[x][0]) if len(cplx[x])>0 else False
+            #TODO: use a list to abstract this whole lambda if I still have time before due.
             if(len(self.cards)<5):
                 if len(cmon["bomb"]) > 0:
                     return("bomb",(cmon["bomb"][0],))
@@ -274,9 +275,9 @@ def letterCard(lst):
         return " ".join([helper[x] for x in lst])
 
 #Test
-#py1 = 0
-#py2 = 0
-#ai = 0
-#py1 = aiPlayer(False,py2,ai,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
-#py2 = aiPlayer(True,ai,py1,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
-#ai = aiPlayer(False,py1,py2,[[4, 0], [4, 1], [4, 2], [5,0], [5, 1], [5, 2], [10, 3], [11, 0], [11, 1],[11,2], [11, 3],[12,2], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
+py1 = 0
+py2 = 0
+ai = 0
+py1 = aiPlayer(False,py2,ai,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
+py2 = aiPlayer(True,ai,py1,[[3, 1], [4, 1], [5, 2], [6, 2], [6, 3], [9, 0], [10, 3], [11, 0], [11, 1], [11, 3], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])
+ai = aiPlayer(False,py1,py2,[[4, 0], [4, 1], [4, 2], [5,0], [5, 1], [5, 2], [10, 3], [11, 0], [11, 1],[11,2], [11, 3],[12,2], [13, 0], [13, 3], [14, 2], [15, 1], [15, 2], [15, 3], [16, 4]])

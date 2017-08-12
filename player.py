@@ -9,6 +9,7 @@ class player(object):
         self.previousPlayer = _previousPlayer
         self.nextPlayer = _nextPlayer
         self.cards.addCard(_initCards)
+        self.score = 0
     def resetPlayer(self,_previousPlayer,_nextPlayer):
         self.previousPlayer = _previousPlayer
         self.nextPlayer = _nextPlayer

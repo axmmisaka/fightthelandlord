@@ -5,6 +5,7 @@
 #NOT USING THESE F*****G CRAP ANYMORE
 
 from player import *
+from ai import *
 from card import *
 
 def make(length,height):
@@ -91,6 +92,12 @@ class board(object):
                 substr(p,7*x,y+CARDH-1,"landlord")
             else:
                 substr(p,7*x,y+CARDH-1,"farmer")
+            if(isinstance(prevP,aiPlayer)):
+                substr(p,x+8,y+CARDH-1,"(ai)")
+            if(isinstance(nextP,aiPlayer)):
+                substr(p,7*x+8,y+CARDH-1,"(ai)")
+            
+            
             for foo in range(0,len(handing)):
                 substituteRec(p,foo*3,y*5,CARDH,CARDW,True)
                 addColor(p,foo*3,y*5,handing[foo])
