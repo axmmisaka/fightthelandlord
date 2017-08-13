@@ -41,7 +41,7 @@ If one player choose “not to hand”, the last player (the one one his left ha
 Repeat 6.7        
 When anyone hands out all his(her) cards, the game over.        
         
-#Simple introduction        
+# Simple introduction        
 Cardtype():        
 The function that input a list of cards (numbers), can return false if the cards does not fit any of card types, and return the card type of those cards:        
 Card types:        
@@ -59,6 +59,6 @@ Airplane: straight triples for example 3,3,3,4,4,4
 Airplane with small: straight 3+1s like 3,3,3,4,4,4,5,5,5,6,8,J        
 Airplane with big: straight full houses like 3,3,3,4,4,4,5,5,5,6,6,6,7,7,8,8,9,9,J,J        
         
-#Further Reading        
+# Further Reading        
 You can find whole rules [here](https://en.wikipedia.org/wiki/Dou_dizhu).         
 Do keep in mind that since "spaceshuttle" is too rare, we did not implement this handing.        
